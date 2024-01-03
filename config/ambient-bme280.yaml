@@ -1,0 +1,75 @@
+esphome:
+  name: ambient-bme280
+  friendly_name: Ambient BME280
+
+esp32:
+  board: adafruit_feather_esp32_v2
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  password: ""
+
+wifi:
+  networks:
+    - ssid: "DENBend"
+      password: "d3mandbend"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Ambient-BME280"
+    password: "MDlneiP5EyGz"
+
+captive_portal:
+
+i2c:
+  sda: GPIO22
+  scl: GPIO20
+
+sensor:
+  # Following ESPHome example
+  - platform: bme280
+    temperature:
+      name: "Temperature"
+      oversampling: 2x      
+    pressure:
+      name: "Pressure"
+      oversampling: 2x
+    humidity:
+      name: "Humidity"
+      oversampling: 2x
+    address: 0x77
+    update_interval: 10s
+
+  # Following https://murt.is/articles/2021-02/huzzah32-battery-monitoring-esphome.html
+  # Documentation: https://esphome.io/components/sensor/adc.html
+  - platform: adc
+    # https://learn.adafruit.com/adafruit-huzzah32-esp32-feather/power-management
+    pin: GPIO35
+    name: "Battery Voltage"
+    update_interval: 10s
+    # See https://murt.is/articles/2021-02/huzzah32-battery-monitoring-esphome.md
+    attenuation: 11db
+    # Calculation based on https://cuddletech.com/?p=1030, modified to account for
+    # ESPHome's internal math
+    # (https://github.com/esphome/esphome/blob/410fad3b41640b76c7f902fb4656d0b1c2598681/esphome/components/adc/adc_sensor.cpp#L59).
+    # (x / 3.9) should be the adc measurement converted to Volts.
+    filters:
+      - lambda: return (x / 3.9) * 2 * 3.3 * 1.1;
+
+light:
+  - platform: status_led
+    name: "Status LED"
+    pin: GPIO13
+    restore_mode: ALWAYS_OFF
+
+
+
+  

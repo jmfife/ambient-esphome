@@ -1,10 +1,10 @@
 # ESPHOME-AMBIENT
 
-This is an example esphome project to measure temperature, humidity, and pressure measurements with ESP32s.
+This is an example [esphome](https://esphome.io/) project to measure temperature, humidity, and pressure with ESP32s.
 
 ## HARDWARE
 
-Two hardware configurations are included in this project
+Two hardware configurations are included in this project, each with different ESP32s and different sensors.
 
 ### ambient-dht22
 
@@ -48,7 +48,7 @@ Build and upload each firmware to its respective device.  For example:
 $ esphome run config/ambient-dht22.yaml
 ```
 
-After it's running, you may run the web dashboard and maintain it from there:
+After it's running, you may run the web dashboard and maintain the device configurations from there:
 
 ```
 $ esphome dashboard config/

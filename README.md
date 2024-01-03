@@ -12,7 +12,7 @@ Adafruit ESP32 HUZZAH Feather with a DHT22 connected to GPIO Pin 4.
 
 ### ambient-bme280
 
-Adafruit ESP32 HUZZAH Feather V2 with a BME280 sensor connected cia I2C.
+Adafruit ESP32 HUZZAH Feather V2 with an Adafruit BME280 (STEMMA QT) sensor connected via I2C using a Stemma QT cable.
 
 ## ESPHOME INSTALLATION
 

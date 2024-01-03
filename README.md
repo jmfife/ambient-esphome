@@ -1,35 +1,55 @@
-GET STARTED
+# ESPHOME-AMBIENT
 
-Install manually.  Follow https://esphome.io/guides/getting_started_command_line or https://esphome.io/guides/getting_started_hassio
+This is an example esphome project to measure temperature, humidity, and pressure measurements with ESP32s.
 
-See https://esphome.io/components/sensor/dht.html
+## HARDWARE
 
-I thought it would be necessary to add a 10kOhm pull-up resistor, but the device fails when I do that.  And it doesn't seem necessary to specify the internal pull-up in the pin config.  So simply add the following to the .yaml config file:
+Two hardware configurations are included in this project
+
+### ambient-dht22
+
+Adafruit ESP32 HUZZAH Feather with a DHT22 connected to GPIO Pin 4.
+
+### ambient-bme280
+
+Adafruit ESP32 HUZZAH Feather V2 with a BME280 sensor connected cia I2C.
+
+## ESPHOME INSTALLATION
+
+Getting started guides are [HERE](https://esphome.io/guides/getting_started_command_line) (command line) and [HERE](https://esphome.io/guides/getting_started_hassio) (web interface).
+
+I prefer to install `esphome` manually and followed [THIS](https://esphome.io/guides/installing_esphome) installation guide.
+
+## FIRMWARE
+
+### Configuration File Creation
+
+The configuration files provided this project were already created using the following process.
+
+1. Create a subdirectory to hold your device configurations:
 
 ```
-sensor:
-  platform: dht
-  model: DHT22
-  pin: GPIO4
-  temperature:
-    name: "Temp"
-  humidity:
-    name: "Hum"
-  update_interval: 5s
+$ mkdir config
 ```
 
-Save .yaml config to `./config` folder.
-
-Build it:
+2. Create a new blank configuration file for each device.  You can run the command line wizard with, for example:
 
 ```
-esphome run config/ambient.yaml
+$ esphome wizard config/ambient-dht22.yaml
 ```
 
+3. Edit the .yaml configuration file, adding the desired components and platforms associated with the device.
 
-Run the web dashboard and maintain it from there:
+### Build and Upload to the Device
+
+Build and upload each firmware to its respective device.  For example:
+
+```
+$ esphome run config/ambient-dht22.yaml
+```
+
+After it's running, you may run the web dashboard and maintain it from there:
 
 ```
 $ esphome dashboard config/
 ```
-
